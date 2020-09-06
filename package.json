@@ -1,0 +1,11 @@
+{
+  "name": "properties-app",
+  "version": "1.0.0",
+  "description": "Properties App",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Rahul Gore",
+  "license": "ISC"
+}
