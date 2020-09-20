@@ -1,11 +1,10 @@
-import express from 'express';
-import { indexPage } from '../controllers';
-const indexRouter = express.Router();
+/** 
+ * FIXME: Does not fetch data from table for some reason
+ */
+
 import Model from '../models/model';
 
-
 const propertiesListModel = new Model('properties_list');
-
 export const propertiesListPage = async (req, res) => {
   try {
     const data = await propertiesListModel.select('*');
@@ -14,9 +13,4 @@ export const propertiesListPage = async (req, res) => {
     return res.status(200).json({ messages: err.stack });
   }
 };
-
-indexRouter.get('/properties', propertiesListPage );
-indexRouter.get('/', indexPage);
-
-
-export default indexRouter;
+export const propertiesListPage = (req, res) => res.status(200).json({ message: "useless" });
