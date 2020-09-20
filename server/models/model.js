@@ -7,9 +7,22 @@ class Model {
     this.pool.on('error', (err, client) => `Error, ${err}, on idle client${client}`);
   }
 
-  async select(columns, clause) {
-    let query = `SELECT ${columns} FROM ${this.table}`;
-    if (clause) query += clause;
+  async selectAll() {
+    let query = `SELECT * FROM ${this.table}`;
+    return this.pool.query(query);
+  }
+
+  async selectWithFilters( filterParams ) {
+    console.log( filterParams );
+    let query = `SELECT * FROM ${this.table}`;
+    if( filterParams.location ) {
+      query += ` WHERE location='${filterParams.location}'`;
+      if( filterParams.tag ) {
+        query += ` AND tag='${filterParams.tag}'`;
+      }
+    } else if( filterParams.tag ) {
+      query += ` WHERE tag='${filterParams.tag}'`;
+    }
     return this.pool.query(query);
   }
 }
