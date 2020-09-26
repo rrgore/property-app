@@ -17,7 +17,6 @@ export const propertiesListPage = async (req, res) => {
 
 export const filteredPropertiesPage = async (req, res) => {
     try {
-		// console.log( req.body );
 		const data = await propertiesListModel.selectWithFilters( req.body );
 		return res.status(200).json({ property: data.rows });
 	} catch (err) {
@@ -25,8 +24,18 @@ export const filteredPropertiesPage = async (req, res) => {
 	}
 };
 
+export const comparePropertiesPage = async (req, res) => {
+    try {
+		const data = await propertiesListModel.selectForCompare( req.body );
+		return res.status(200).json({ property: data.rows });
+	} catch (err) {
+		return res.status(200).json({ messages: err.stack });
+	}
+};
+
 indexRouter.get('/properties', propertiesListPage );
-indexRouter.get('/filteredProperties', filteredPropertiesPage );
+indexRouter.get('/filterProperties', filteredPropertiesPage );
+indexRouter.get('/compareProperties', comparePropertiesPage );
 indexRouter.get('/', indexPage);
 
 

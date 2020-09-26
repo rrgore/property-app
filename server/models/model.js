@@ -13,7 +13,6 @@ class Model {
   }
 
   async selectWithFilters( filterParams ) {
-    console.log( filterParams );
     let query = `SELECT * FROM ${this.table}`;
     if( filterParams.location ) {
       query += ` WHERE location='${filterParams.location}'`;
@@ -22,6 +21,17 @@ class Model {
       }
     } else if( filterParams.tag ) {
       query += ` WHERE tag='${filterParams.tag}'`;
+    }
+    return this.pool.query(query);
+  }
+
+  async selectForCompare( filterParams ) {
+    let query = `SELECT * FROM ${this.table}`;
+    if( filterParams.id1 ) {
+      query += ` WHERE id='${filterParams.id1}'`;
+      if( filterParams.id2 ) {
+        query += ` OR id='${filterParams.id2}'`;
+      }
     }
     return this.pool.query(query);
   }
